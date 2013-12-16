@@ -88,15 +88,6 @@ DAT.Globe = function(container, rotateY, colorFn) {
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
-  function getPov() {
-    // return an object describing the view position
-    return {};
-  }
-
-  function setPov(pov) {
-    // set the view position from a descriptive object
-  }
-
   function init() {
 
     container.style.color = '#fff';
@@ -363,8 +354,24 @@ DAT.Globe = function(container, rotateY, colorFn) {
     render();
   }
 
+  function getTarget() {
+    return {
+      x: target.x,
+      y: target.y,
+      z: distanceTarget
+    };
+  }
+
+  function setTarget(newTarget) {
+    target.x = newTarget.x;
+    target.y = newTarget.y;
+    distanceTarget = newTarget.z;
+  }
+
   function render() {
     zoom(curZoomSpeed);
+
+    console.log(getTarget());
 
     rotation.x += (target.x - rotation.x) * 0.1;
     rotation.y += (target.y - rotation.y) * 0.1;

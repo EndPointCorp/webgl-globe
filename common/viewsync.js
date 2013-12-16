@@ -12,7 +12,7 @@ VIEWSYNC.Connection = function(globe) {
 
   viewsync.on('pov', function(pov) {
     console.debug('viewsync recv pov:', pov);
-    globe.setPov(pov);
+    globe.setTarget(pov);
   });
 
   function sendPov(pov) {
