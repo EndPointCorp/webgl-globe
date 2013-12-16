@@ -13,7 +13,10 @@
 
 var DAT = DAT || {};
 
-DAT.Globe = function(container, colorFn) {
+DAT.Globe = function(container, rotateY, colorFn) {
+
+  // Rotate the Camera to provide Liquid Galaxy view offsets.
+  rotateY = rotateY || 0.0;
 
   colorFn = colorFn || function(x) {
     var c = new THREE.Color();
@@ -94,7 +97,7 @@ DAT.Globe = function(container, colorFn) {
     w = container.offsetWidth || window.innerWidth;
     h = container.offsetHeight || window.innerHeight;
 
-    camera = new THREE.PerspectiveCamera(30, w / h, 1, 10000);
+    camera = new THREE.PerspectiveCamera(60, w / h, 1, 10000); //60 degree VFOV
     camera.position.z = distance;
 
     scene = new THREE.Scene();
@@ -118,6 +121,8 @@ DAT.Globe = function(container, colorFn) {
     mesh.rotation.y = Math.PI;
     scene.add(mesh);
 
+/* TODO: Update atmosphere shader to work with rotated camera. */
+/*
     shader = Shaders['atmosphere'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
@@ -135,7 +140,7 @@ DAT.Globe = function(container, colorFn) {
     mesh = new THREE.Mesh(geometry, material);
     mesh.scale.set( 1.1, 1.1, 1.1 );
     scene.add(mesh);
-
+*/
     geometry = new THREE.CubeGeometry(0.75, 0.75, 1);
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,-0.5));
 
@@ -361,6 +366,9 @@ DAT.Globe = function(container, colorFn) {
     camera.position.z = distance * Math.cos(rotation.x) * Math.cos(rotation.y);
 
     camera.lookAt(mesh.position);
+
+    // Apply Rotation
+    camera.rotateY(rotateY);
 
     renderer.render(scene, camera);
   }
