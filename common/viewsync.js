@@ -1,7 +1,8 @@
 var VIEWSYNC = VIEWSYNC || {};
 
-VIEWSYNC.Connection = function(globe) {
+VIEWSYNC.Connection = function(globe, master) {
   var globe = globe;
+  var master = master;
 
   var viewsync = io.connect('/viewsync');
 
@@ -18,5 +19,11 @@ VIEWSYNC.Connection = function(globe) {
   function sendPov(pov) {
     console.debug('viewsync send pov:', pov);
     viewsync.emit('pov', pov);
+  }
+
+  if (master) {
+    globe.setPreRenderCB(function() {
+      sendPov(globe.getTarget());
+    });
   }
 }

@@ -88,6 +88,8 @@ DAT.Globe = function(container, rotateY, colorFn) {
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
+  var preRenderCB = null;
+
   function init() {
 
     container.style.color = '#fff';
@@ -351,27 +353,12 @@ DAT.Globe = function(container, rotateY, colorFn) {
 
   function animate() {
     requestAnimationFrame(animate);
+    if (preRenderCB != null) preRenderCB();
     render();
-  }
-
-  function getTarget() {
-    return {
-      x: target.x,
-      y: target.y,
-      z: distanceTarget
-    };
-  }
-
-  function setTarget(newTarget) {
-    target.x = newTarget.x;
-    target.y = newTarget.y;
-    distanceTarget = newTarget.z;
   }
 
   function render() {
     zoom(curZoomSpeed);
-
-    console.log(getTarget());
 
     rotation.x += (target.x - rotation.x) * 0.1;
     rotation.y += (target.y - rotation.y) * 0.1;
@@ -392,6 +379,20 @@ DAT.Globe = function(container, rotateY, colorFn) {
   init();
   this.animate = animate;
 
+
+  this.getTarget = function() {
+    return {
+      x: target.x,
+      y: target.y,
+      z: distanceTarget
+    };
+  }
+
+  this.setTarget = function(newTarget) {
+    target.x = newTarget.x;
+    target.y = newTarget.y;
+    distanceTarget = newTarget.z;
+  }
 
   this.__defineGetter__('time', function() {
     return this._time || 0;
@@ -425,6 +426,10 @@ DAT.Globe = function(container, rotateY, colorFn) {
   this.createPoints = createPoints;
   this.renderer = renderer;
   this.scene = scene;
+  this.setPreRenderCB = function(cb) {
+    preRenderCB = cb;
+  }
+
 
   return this;
 

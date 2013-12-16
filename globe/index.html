@@ -139,7 +139,8 @@
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container, 0.628318531); // 36 degrees
 
-      var viewsync = new VIEWSYNC.Connection(globe);
+      var master = location.search.match(/master=true/) != null;
+      var viewsync = new VIEWSYNC.Connection(globe, master);
 
       console.log(globe);
       var i, tweens = [];
