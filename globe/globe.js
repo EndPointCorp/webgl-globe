@@ -88,6 +88,15 @@ DAT.Globe = function(container, rotateY, colorFn) {
   var padding = 40;
   var PI_HALF = Math.PI / 2;
 
+  function getPov() {
+    // return an object describing the view position
+    return {};
+  }
+
+  function setPov(pov) {
+    // set the view position from a descriptive object
+  }
+
   function init() {
 
     container.style.color = '#fff';
