@@ -7,6 +7,7 @@ VIEWSYNC.Connection = function(globe) {
 
   viewsync.on('connect', function() {
     console.debug('viewsync connected');
+    viewsync.emit('refresh');
   });
 
   viewsync.on('pov', function(pov) {
