@@ -31,6 +31,7 @@
       }
 
       #currentInfo {
+        display: none;
         width: 270px;
         position: absolute;
         left: 20px;
@@ -56,6 +57,7 @@
       }
 
       #title {
+        display: none;
         position: absolute;
         top: 20px;
         width: 270px;
@@ -137,9 +139,17 @@
 
       var years = ['1990','1995','2000'];
       var container = document.getElementById('container');
-      var globe = new DAT.Globe(container, 0.628318531); // 36 degrees
 
       var master = location.search.match(/master=true/) != null;
+      var rotateY = location.search.match(/rotateY=(\-?\d+\.\d*)/);
+      if (rotateY) {
+        rotateY = parseFloat(rotateY[1]);
+      } else {
+        rotateY = 0.0;
+      }
+
+      var globe = new DAT.Globe(container, rotateY);
+
       var viewsync = new VIEWSYNC.Connection(globe, master);
 
       console.log(globe);
