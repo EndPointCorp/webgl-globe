@@ -11,7 +11,7 @@ VIEWSYNC.Connection = function(globe, master) {
     viewsync.emit('refresh');
   });
 
-  viewsync.on('pov', function(pov) {
+  viewsync.on('sync pov', function(pov) {
     console.debug('viewsync recv pov:', pov);
     globe.setTarget(pov);
   });
