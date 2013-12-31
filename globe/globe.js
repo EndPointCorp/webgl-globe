@@ -384,7 +384,8 @@ DAT.Globe = function(container, rotateY, colorFn) {
     return {
       x: target.x,
       y: target.y,
-      z: distanceTarget
+      z: distanceTarget,
+      time: this.time
     };
   }
 
@@ -392,6 +393,7 @@ DAT.Globe = function(container, rotateY, colorFn) {
     target.x = newTarget.x;
     target.y = newTarget.y;
     distanceTarget = newTarget.z;
+    this.time = newTarget.time;
   }
 
   this.__defineGetter__('time', function() {
