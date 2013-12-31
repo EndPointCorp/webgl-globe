@@ -141,6 +141,12 @@
       var container = document.getElementById('container');
 
       var master = location.search.match(/master=true/) != null;
+
+      if (master) {
+        document.getElementById('title').style.display = 'block';
+        document.getElementById('currentInfo').style.display = 'block';
+      }
+
       var rotateY = location.search.match(/rotateY=(\-?\d+\.\d*)/);
       if (rotateY) {
         rotateY = parseFloat(rotateY[1]);
